@@ -10,7 +10,14 @@ RUN set -ex \
  && pip install --upgrade pip \
  && pip install --no-cache-dir -r requirements.txt \
  && apk del alpine-sdk \
- && rm -rf /var/cache/apk/* \
+ && mkdir /tmp/postgres-apk \
+ && cd /tmp/postgres-apk \
+ && apk fetch postgresql \
+ && tar xzf postgresql-*.apk \
+ && cd $OLDPWD \
+ && cp /tmp/postgres-apk/usr/bin/pg_dump /usr/local/bin \
+ && cp /tmp/postgres-apk/usr/bin/pg_restore /usr/local/bin \
+ && rm -rf /tmp/postgres-apk /var/cache/apk/* \
  && addgroup -g 50 -S pgadmin \
  && adduser -D -S -h /pgadmin -s /sbin/nologin -u 1000 -G pgadmin pgadmin \
  && mkdir -p /pgadmin/config /pgadmin/storage \
