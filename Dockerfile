@@ -4,11 +4,13 @@ ENV PGADMIN_VERSION=1.5 \
     PYTHONDONTWRITEBYTECODE=1
 
 RUN set -ex \
+ && apk update \
  && apk add --no-cache alpine-sdk postgresql-dev \
  && echo "https://ftp.postgresql.org/pub/pgadmin/pgadmin4/v${PGADMIN_VERSION}/pip/pgadmin4-${PGADMIN_VERSION}-py2.py3-none-any.whl" > requirements.txt \
  && pip install --upgrade pip \
  && pip install --no-cache-dir -r requirements.txt \
  && apk del alpine-sdk \
+ && rm -rf /var/cache/apk/* \
  && addgroup -g 50 -S pgadmin \
  && adduser -D -S -h /pgadmin -s /sbin/nologin -u 1000 -G pgadmin pgadmin \
  && mkdir -p /pgadmin/config /pgadmin/storage \
