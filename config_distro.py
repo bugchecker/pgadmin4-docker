@@ -27,7 +27,9 @@ DATA_DIR = os.getenv('PG_ADMIN_DATA_DIR', '/pgadmin/')
 DEBUG = strtobool(os.getenv('DEBUG', "False"))
 
 # Log to stdout so that logging is handled by Docker logging drivers
-LOG_FILE = '/dev/stdout'
+LOG_FILE = '/dev/null'
+FILE_LOG_LEVEL = CRITICAL + 1
+# CONSOLE_LOG_LEVEL = WARNING
 
 ##########################################################################
 # Server settings
