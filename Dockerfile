@@ -1,4 +1,4 @@
-FROM python:2-alpine3.7
+FROM python:3.6-alpine3.7
 
 ENV PGADMIN_VERSION=3.0 \
     PYTHONDONTWRITEBYTECODE=1
@@ -22,8 +22,8 @@ RUN set -ex \
 
 EXPOSE 5050
 
-COPY LICENSE config_distro.py /usr/local/lib/python2.7/site-packages/pgadmin4/
+COPY LICENSE config_distro.py /usr/local/lib/python3.6/site-packages/pgadmin4/
 
 USER pgadmin:pgadmin
-CMD ["python", "./usr/local/lib/python2.7/site-packages/pgadmin4/pgAdmin4.py"]
+CMD ["python", "./usr/local/lib/python3.6/site-packages/pgadmin4/pgAdmin4.py"]
 VOLUME ["/pgadmin/", "/tmp/dumps/"]
